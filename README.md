@@ -13,3 +13,4 @@ Các thư viện đang sử dụng trong dự án:
 - Formik và Yup
 - Antd
 - Sass
+- react-qr-code

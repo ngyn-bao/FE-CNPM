@@ -1,8 +1,22 @@
+import { ConfigProvider } from "antd";
+import useRoutesCustom from "./hooks/useRoutesCustom";
+
 function App() {
+  const routes = useRoutesCustom();
   return (
-    <div>
-      <h1 className="text-red-500">Đây là Boilerplate ReactJS</h1>
-    </div>
+    <>
+      <ConfigProvider
+        theme={{
+          components: {
+            Layout: {
+              siderBg: "#fff",
+            },
+          },
+        }}
+      >
+        <div>{routes}</div>
+      </ConfigProvider>
+    </>
   );
 }
 
