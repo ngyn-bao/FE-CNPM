@@ -14,3 +14,5 @@ Các thư viện đang sử dụng trong dự án:
 - Antd
 - Sass
 - react-qr-code
+- react-fontawesome
+- MUI

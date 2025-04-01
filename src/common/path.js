@@ -5,4 +5,5 @@ export const path = {
   datThietBi: "/dat-thiet-bi",
   quetQr: "/quet-qr",
   lichSu: "/lich-su-dang-ki",
+  admin: "/admin",
 };

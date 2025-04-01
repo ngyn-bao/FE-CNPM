@@ -28,7 +28,7 @@ const UserTemplate = () => {
       case path.lichSu:
         return "5";
       default:
-        return "1";
+        return "0";
     }
   };
 
@@ -71,6 +71,7 @@ const UserTemplate = () => {
     },
   ];
 
+  // Nếu là user bình thường thì dùng cái này
   // const itemsUser = [
   //   {
   //     key: "2",
@@ -97,6 +98,15 @@ const UserTemplate = () => {
   // if (infoUser) {
   //   items.push(...itemsUser);
   // }
+
+  // Nếu là admin site thì dùng cái này
+  // const itemsAdmin = [
+  //   {
+  //     key: "2",
+  //     icon: <BarChartOutlined />,
+  //     label: <Link to={path.datCho}>Thống kê đăng ký</Link>,
+  //   },
+  // ];
 
   return (
     <Layout style={{ minHeight: "100vh" }}>

@@ -5,7 +5,8 @@ import UserTemplate from "../template/UserTemplate/UserTemplate";
 import UserInfo from "../pages/UserInfo/UserInfo";
 import { Skeleton } from "antd";
 import QuetQr from "../pages/QuetQr/QuetQr";
-import RegisterHistory from "../components/RegisterHistory/RegisterHistory";
+import RegisterHistory from "../pages/RegisterHistory/RegisterHistory";
+import Admin from "../pages/Admin/Admin";
 
 const useRoutesCustom = () => {
   const routes = useRoutes([
@@ -36,6 +37,10 @@ const useRoutesCustom = () => {
               <RegisterHistory />
             </Suspense>
           ),
+        },
+        {
+          path: path.admin,
+          element: <Admin />,
         },
       ],
     },
