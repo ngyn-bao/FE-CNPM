@@ -18,12 +18,9 @@
 
 @keyframes scanning {
   0% {
-    transform: translate(-50%, -50%) translateY(100%);
-  }
-  50% {
-    transform: translate(-50%, -50%) translateY(150%);
+    transform: translate(-50%, -50%) translateY(115%);
   }
   100% {
-    transform: translate(-50%, -50%) translateY(180%);
+    transform: translate(-50%, -50%) translateY(130%);
   }
 }

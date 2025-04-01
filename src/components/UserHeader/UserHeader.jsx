@@ -84,7 +84,7 @@ const UserHeader = ({ collapsed, setCollapsed }) => {
         <div className="header_logo">
           <Link to={path.homePage}>
             <img
-              src="./../public/logoBachKhoa.png"
+              src="/logoBachKhoa.png"
               className="w-24 h-16"
               alt="Bách Khoa Logo"
             />

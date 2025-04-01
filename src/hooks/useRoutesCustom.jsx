@@ -4,7 +4,8 @@ import { path } from "../common/path";
 import UserTemplate from "../template/UserTemplate/UserTemplate";
 import UserInfo from "../pages/UserInfo/UserInfo";
 import { Skeleton } from "antd";
-import QuetQr from "../components/QuetQr/QuetQr";
+import QuetQr from "../pages/QuetQr/QuetQr";
+import RegisterHistory from "../components/RegisterHistory/RegisterHistory";
 
 const useRoutesCustom = () => {
   const routes = useRoutes([
@@ -25,6 +26,14 @@ const useRoutesCustom = () => {
           element: (
             <Suspense fallback={<Skeleton />}>
               <QuetQr />
+            </Suspense>
+          ),
+        },
+        {
+          path: path.lichSu,
+          element: (
+            <Suspense fallback={<Skeleton />}>
+              <RegisterHistory />
             </Suspense>
           ),
         },

@@ -3,7 +3,7 @@ import QRCode from "react-qr-code";
 
 const QuetQr = () => {
   return (
-    <div className="mx-20 mt-10 h-80 bg-white qr_section text-center">
+    <div className="mx-20 mt-10 bg-white qr_section text-center">
       <div className="qr_header py-4" style={{ backgroundColor: "#0a529c" }}>
         <h2 className="text-white uppercase font-semibold text-xl">quét qr</h2>
       </div>
