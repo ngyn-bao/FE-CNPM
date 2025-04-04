@@ -1,17 +1,29 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Select, Button, Dropdown, Avatar } from 'antd';
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Select, Button, Dropdown, Avatar, message } from 'antd';
 import { UserOutlined, LogoutOutlined, MenuOutlined, BulbOutlined, BulbFilled } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { setLanguage, setTheme } from '../../redux/slices/appSlice';
+import { logoutUser } from '../../redux/slices/authSlice';
 import './Header.scss';
 import logo from '../../assets/images/logo.png';
 
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const language = useSelector((state) => state.app.language);
   const theme = useSelector((state) => state.app.theme);
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleMenuClick = ({ key }) => {
+    if (key === 'logout') {
+      dispatch(logoutUser());
+      message.success('Logged out successfully');
+      navigate('/');
+    } else if (key === 'profile') {
+      navigate('/profile');
+    }
+  };
 
   const userMenuItems = [
     {
@@ -42,20 +54,11 @@ const Header = () => {
         <Link to="/" className="header__nav-item">Home</Link>
         <Link to="/book-room" className="header__nav-item">Book Room</Link>
         <Link to="/equipment" className="header__nav-item">Equipment</Link>
-        <Link to="/profile" className="header__nav-item">Profile</Link>
+        {user && <Link to="/profile" className="header__nav-item">Profile</Link>}
       </nav>
 
       <div className="header__actions">
-        <Select
-          value={language}
-          onChange={(value) => dispatch(setLanguage(value))}
-          options={[
-            { value: 'en', label: 'English' },
-            { value: 'vi', label: 'Tiếng Việt' },
-          ]}
-          className="header__language-select"
-        />
-
+        
         <Button 
           onClick={toggleTheme} 
           className="header__theme-toggle"
@@ -65,17 +68,19 @@ const Header = () => {
           {theme === 'light' ? 'Dark' : 'Light'}
         </Button>
 
-        {isLoggedIn ? (
-          <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">
+        {user ? (
+          <Dropdown menu={{ items: userMenuItems, onClick: handleMenuClick }} placement="bottomRight">
             <Button className="header__user-button">
               <Avatar icon={<UserOutlined />} />
-              <span className="header__user-name">User Name</span>
+              <span className="header__user-name">{user.name}</span>
             </Button>
           </Dropdown>
         ) : (
-          <Button type="primary" className="header__login-button">
-            Login
-          </Button>
+          <Link to="/login">
+            <Button type="primary" className="header__login-button">
+              Login
+            </Button>
+          </Link>
         )}
       </div>
     </header>

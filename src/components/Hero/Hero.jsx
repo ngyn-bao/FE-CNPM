@@ -1,9 +1,12 @@
 import React from 'react';
 import { Button, Card, Row, Col, Statistic } from 'antd';
 import { CalendarOutlined, SearchOutlined, ToolOutlined, ClockCircleOutlined, TeamOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import './Hero.scss';
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="hero">
       <div className="hero__content">
@@ -14,31 +17,19 @@ const Hero = () => {
           Efficiently manage and book study spaces at HCMUT. Access modern facilities,
           equipment, and create the perfect environment for your learning journey.
         </p>
-      </div>
 
-      <Row gutter={[24, 24]} className="hero__actions">
-        <Col xs={24} sm={12} md={8}>
           <Card className="hero__action-card">
-            <Button type="primary" size="large" block icon={<CalendarOutlined />}>
-              Book a Room
+            <Button 
+              type="primary" 
+              size="large" 
+              block 
+              icon={<CalendarOutlined />}
+              onClick={() => navigate('/book-room')}
+            >
+              RESERVATION NOW!
             </Button>
           </Card>
-        </Col>
-        <Col xs={24} sm={12} md={8}>
-          <Card className="hero__action-card">
-            <Button size="large" block icon={<SearchOutlined />}>
-              Check Availability
-            </Button>
-          </Card>
-        </Col>
-        <Col xs={24} sm={12} md={8}>
-          <Card className="hero__action-card">
-            <Button size="large" block icon={<ToolOutlined />}>
-              Equipment Reservation
-            </Button>
-          </Card>
-        </Col>
-      </Row>
+      </div>
 
       <Row gutter={[24, 24]} className="hero__stats">
         <Col xs={24} sm={12} md={6}>

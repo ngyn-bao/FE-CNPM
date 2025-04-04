@@ -3,6 +3,10 @@ import { Routes, Route } from 'react-router-dom';
 import { ConfigProvider, theme as antTheme } from 'antd';
 import { useSelector } from 'react-redux';
 import Home from './pages/Home/Home';
+import Login from './pages/Login/Login';
+import BookRoom from './pages/BookRoom/BookRoom';
+import AboutSystem from './pages/AboutSystem/AboutSystem';
+import Equipment from './pages/Equipment/Equipment';
 import './App.scss';
 
 const App = () => {
@@ -53,6 +57,10 @@ const App = () => {
     <ConfigProvider theme={getThemeConfig()}>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/book-room" element={<BookRoom />} />
+        <Route path="/about-system" element={<AboutSystem />} />
+        <Route path="/equipment" element={<Equipment />} />
       </Routes>
     </ConfigProvider>
   );
