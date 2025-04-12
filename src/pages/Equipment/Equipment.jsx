@@ -70,9 +70,6 @@ const Equipment = () => {
       <div className="equipment__content">
         <div className="equipment__header">
           <Title level={1}>Equipment Borrowing</Title>
-          <Text type="secondary">
-            Check the availability of equipment for your study room
-          </Text>
         </div>
 
         <Row gutter={[24, 24]} className="equipment__list">
