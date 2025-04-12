@@ -1,13 +1,30 @@
 import React, { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { ConfigProvider, theme as antTheme } from 'antd';
 import { useSelector } from 'react-redux';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import BookRoom from './pages/BookRoom/BookRoom';
+import UserInfo from './pages/UserInfo/UserInfo';
+import History from './pages/History/History';
 import AboutSystem from './pages/AboutSystem/AboutSystem';
+import Admin from './pages/Admin/Admin';
 import Equipment from './pages/Equipment/Equipment';
 import './App.scss';
+
+const PrivateRoute = ({ children, roles }) => {
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+
+  if (roles && !roles.includes(user.role)) {
+    return <Navigate to="/" />;
+  }
+
+  return children;
+};
 
 const App = () => {
   const theme = useSelector((state) => state.app.theme);
@@ -59,8 +76,18 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/book-room" element={<BookRoom />} />
-        <Route path="/about-system" element={<AboutSystem />} />
+        <Route path="/user-info" element={<UserInfo />} />
         <Route path="/equipment" element={<Equipment />} />
+        <Route path="/history" element={<History />} />
+        <Route path="/about-system" element={<AboutSystem />} />
+        <Route
+          path="/admin"
+          element={
+            <PrivateRoute roles={["admin"]}>
+              <Admin />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </ConfigProvider>
   );

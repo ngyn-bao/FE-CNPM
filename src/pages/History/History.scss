@@ -1,0 +1,146 @@
+.history {
+  min-height: 100vh;
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+
+  &__content {
+    flex: 1;
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  &__card {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    .ant-card-head {
+      border-bottom: none;
+      padding: 16px 24px;
+    }
+
+    .ant-tabs-nav {
+      margin-bottom: 24px;
+    }
+
+    .ant-tabs-tab {
+      padding: 12px 24px;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__item {
+    background-color: var(--item-background);
+    border-radius: 8px;
+    padding: 16px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transform: translateY(-2px);
+    }
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    &-date {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    &-details {
+      display: flex;
+      gap: 24px;
+
+      @media (max-width: 576px) {
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+
+    &-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      p {
+        margin: 0;
+        color: var(--text-primary);
+      }
+    }
+
+    &-purpose {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      p {
+        margin: 0;
+        color: var(--text-primary);
+      }
+    }
+  }
+
+  .ant-tag {
+    margin: 0;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    &.ant-tag-success {
+      background-color: var(--success-bg);
+      color: var(--success-color);
+      border-color: var(--success-border);
+    }
+
+    &.ant-tag-processing {
+      background-color: var(--processing-bg);
+      color: var(--processing-color);
+      border-color: var(--processing-border);
+    }
+
+    &.ant-tag-warning {
+      background-color: var(--warning-bg);
+      color: var(--warning-color);
+      border-color: var(--warning-border);
+    }
+  }
+
+  // Responsive adjustments
+  @media (max-width: 992px) {
+    &__content {
+      padding: 16px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    &__content {
+      padding: 12px;
+    }
+
+    &__item {
+      padding: 12px;
+    }
+
+    &__item-details {
+      flex-direction: column;
+    }
+  }
+} 

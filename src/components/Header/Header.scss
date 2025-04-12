@@ -48,7 +48,7 @@
   &__actions {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 12px;
   }
 
   &__language-select {
@@ -56,11 +56,11 @@
   }
 
   &__theme-toggle {
-    border: none;
-    font-size: 0.9rem;
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    height: 36px;
+    border: none;
+    font-size: 0.9rem;
     color: var(--text-color);
     background-color: transparent;
     padding: 0.5rem;
@@ -68,6 +68,7 @@
     transition: all 0.3s ease;
 
     .anticon {
+      margin-right: 5px;
       font-size: 1.2rem;
       color: var(--primary-color);
     }

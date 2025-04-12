@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Select, Button, Dropdown, Avatar, message } from 'antd';
 import { UserOutlined, LogoutOutlined, MenuOutlined, BulbOutlined, BulbFilled } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { setLanguage, setTheme } from '../../redux/slices/appSlice';
-import { logoutUser } from '../../redux/slices/authSlice';
+import { logout } from '../../redux/slices/authSlice';
 import './Header.scss';
 import logo from '../../assets/images/logo.png';
 
@@ -17,19 +17,19 @@ const Header = () => {
 
   const handleMenuClick = ({ key }) => {
     if (key === 'logout') {
-      dispatch(logoutUser());
+      dispatch(logout());
       message.success('Logged out successfully');
       navigate('/');
-    } else if (key === 'profile') {
-      navigate('/profile');
+    } else if (key === 'user-info') {
+      navigate('/user-info');
     }
   };
 
   const userMenuItems = [
     {
-      key: 'profile',
+      key: 'user-info',
       icon: <UserOutlined />,
-      label: 'Profile',
+      label: 'User Info',
     },
     {
       key: 'logout',
@@ -51,14 +51,17 @@ const Header = () => {
       </div>
 
       <nav className="header__nav">
-        <Link to="/" className="header__nav-item">Home</Link>
-        <Link to="/book-room" className="header__nav-item">Book Room</Link>
-        <Link to="/equipment" className="header__nav-item">Equipment</Link>
-        {user && <Link to="/profile" className="header__nav-item">Profile</Link>}
+        {user && (
+          <>
+            <Link to="/" className="header__nav-item">Home</Link>
+            <Link to="/book-room" className="header__nav-item">Book Room</Link>
+            <Link to="/equipment" className="header__nav-item">Equipment</Link>
+            <Link to="/user-info" className="header__nav-item">User Info</Link>
+          </>
+        )}
       </nav>
 
       <div className="header__actions">
-        
         <Button 
           onClick={toggleTheme} 
           className="header__theme-toggle"

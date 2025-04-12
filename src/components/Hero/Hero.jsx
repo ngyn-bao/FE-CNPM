@@ -2,10 +2,20 @@ import React from 'react';
 import { Button, Card, Row, Col, Statistic } from 'antd';
 import { CalendarOutlined, SearchOutlined, ToolOutlined, ClockCircleOutlined, TeamOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import './Hero.scss';
 
 const Hero = () => {
   const navigate = useNavigate();
+  const { isAuthenticated } = useSelector(state => state.auth);
+
+  const handleReservation = () => {
+    if (isAuthenticated) {
+      navigate('/book-room');
+    } else {
+      navigate('/login');
+    }
+  };
 
   return (
     <section className="hero">
@@ -24,7 +34,7 @@ const Hero = () => {
               size="large" 
               block 
               icon={<CalendarOutlined />}
-              onClick={() => navigate('/book-room')}
+              onClick={handleReservation}
             >
               RESERVATION NOW!
             </Button>

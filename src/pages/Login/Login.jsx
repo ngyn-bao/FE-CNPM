@@ -1,117 +1,124 @@
-import React from 'react';
-import { Form, Input, Button, Card, Checkbox, message } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { useNavigate, Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { loginUser, clearError } from '../../redux/slices/authSlice';
-import './Login.scss';
-import logo from '../../assets/images/logo.png';
+import React, { useState } from "react";
+import { Form, Input, Button, Card, message } from "antd";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../../redux/slices/authSlice";
+import "./Login.scss";
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, error, user } = useSelector((state) => state.auth);
 
-  // Redirect if already logged in
-  React.useEffect(() => {
-    if (user) {
-      navigate('/');
-    }
-  }, [user, navigate]);
+  // Mock admin credentials
+  const adminCredentials = {
+    username: "admin",
+    password: "admin123",
+    role: "admin",
+    name: "Admin User"
+  };
 
-  // Show error message if login fails
-  React.useEffect(() => {
-    if (error) {
-      message.error(error);
-      dispatch(clearError());
-    }
-  }, [error, dispatch]);
+  // Mock student credentials
+  const studentCredentials = {
+    username: "student",
+    password: "student123",
+    role: "student",
+    name: "Student User"
+  };
 
   const onFinish = (values) => {
-    dispatch(loginUser(values))
-      .unwrap()
-      .then(() => {
-        message.success('Login successful!');
-        navigate('/');
-      })
-      .catch(() => {
-        // Error is handled in the useEffect
-      });
+    setLoading(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      if (
+        (values.username === adminCredentials.username && 
+         values.password === adminCredentials.password) ||
+        (values.username === studentCredentials.username && 
+         values.password === studentCredentials.password)
+      ) {
+        const user = values.username === adminCredentials.username ? 
+          adminCredentials : studentCredentials;
+        
+        dispatch(loginSuccess({
+          username: user.username,
+          role: user.role,
+          name: user.name
+        }));
+
+        message.success("Login successful!");
+        
+        // Redirect based on role
+        if (user.role === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
+      } else {
+        message.error("Invalid username or password!");
+      }
+      setLoading(false);
+    }, 1000);
   };
 
   return (
-    <div className="login-page">
-      <div className="login-container">
-        <div className="login-logo">
-          <img src={logo} alt="HCMUT Logo" />
-          <h1>Smart Learning Space Management System</h1>
-        </div>
-        
-        <Card className="login-card" bordered={false}>
-          <h2 className="login-title">Login to Your Account</h2>
-          
-          <Form
-            name="login_form"
-            className="login-form"
-            initialValues={{ remember: true }}
-            onFinish={onFinish}
+    <div className="login">
+      <Card className="login__card">
+        <h1 className="login__title">Login</h1>
+        <p className="login__subtitle">
+          Login to access the Smart Learning Space Management System
+        </p>
+        <Form
+          name="login"
+          onFinish={onFinish}
+          autoComplete="off"
+          layout="vertical"
+        >
+          <Form.Item
+            name="username"
+            rules={[
+              { required: true, message: "Please enter your username!" },
+            ]}
           >
-            <Form.Item
-              name="username"
-              rules={[{ required: true, message: 'Please enter your student ID!' }]}
-            >
-              <Input 
-                prefix={<UserOutlined />} 
-                placeholder="Student ID" 
-                size="large"
-              />
-            </Form.Item>
-            
-            <Form.Item
-              name="password"
-              rules={[{ required: true, message: 'Please enter your password!' }]}
-            >
-              <Input.Password
-                prefix={<LockOutlined />}
-                placeholder="Password"
-                size="large"
-              />
-            </Form.Item>
-            
-            <Form.Item>
-              <Form.Item name="remember" valuePropName="checked" noStyle>
-                <Checkbox>Remember me</Checkbox>
-              </Form.Item>
-              
-              <Link to="/forgot-password" className="login-form-forgot">
-                Forgot password
-              </Link>
-            </Form.Item>
-            
-            <Form.Item>
-              <Button 
-                type="primary" 
-                htmlType="submit" 
-                className="login-form-button"
-                loading={loading}
-                size="large"
-                block
-              >
-                Log in
-              </Button>
-              Or <Link to="/register">register now!</Link>
-            </Form.Item>
+            <Input
+              prefix={<UserOutlined />}
+              placeholder="Username"
+              size="large"
+            />
+          </Form.Item>
 
-            <Form.Item className="login-demo-note">
-              <div className="demo-credentials">
-                <p><strong>Demo Credentials:</strong></p>
-                <p>Username: student</p>
-                <p>Password: password</p>
-              </div>
-            </Form.Item>
-          </Form>
-        </Card>
-      </div>
+          <Form.Item
+            name="password"
+            rules={[
+              { required: true, message: "Please enter your password!" },
+            ]}
+          >
+            <Input.Password
+              prefix={<LockOutlined />}
+              placeholder="Password"
+              size="large"
+            />
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={loading}
+              size="large"
+              block
+            >
+              Login
+            </Button>
+          </Form.Item>
+        </Form>
+        <div className="login__demo-credentials">
+          <h3>Demo Credentials:</h3>
+          <p>Admin: username: admin, password: admin123</p>
+          <p>Student: username: student, password: student123</p>
+        </div>
+      </Card>
     </div>
   );
 };
